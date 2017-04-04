@@ -6,7 +6,7 @@ This file creates your application.
 """
 
 from app import app
-from flask import render_template, request, redirect, url_for, jsonify
+from flask import render_template, request, redirect, url_for, jsonify, session
 from bs4 import BeautifulSoup
 import requests
 import urlparse
@@ -48,6 +48,19 @@ def page_not_found(error):
     """Custom 404 page."""
     return render_template('404.html'), 404
 
-
+    
+    
+@app.route('/api/thumbnail/process', methods=['GET','POST'])
+def get_images():
+    url = request.json['url']
+    urlReal = url['url']
+    urlReal.encode("ISO-8859-1")
+    data = image-getter.image_dem
+    if data:
+        response = jsonify({'error':'null', "data":{"thumbnails":data},"message":"Success"})
+    else:
+        response = jsonify({'error':'1','data':{},'message':'Unable to extract thumbnails'})
+    return response
+    
 if __name__ == '__main__':
     app.run(debug=True,host="0.0.0.0",port="8080")
